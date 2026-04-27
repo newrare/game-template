@@ -9,7 +9,7 @@
 // ─── Game identity ─────────────────────────────────────────────────────────
 
 export const APP_ID = "game-template";
-export const APP_NAME = "Game Template";
+export const APP_NAME = "Game";
 export const APP_VERSION = "0.1.0";
 
 // ─── Orientation ───────────────────────────────────────────────────────────
@@ -17,9 +17,9 @@ export const APP_VERSION = "0.1.0";
 /**
  * Supported orientations for the game viewport.
  * The `ORIENTATION` constant below is the single source of truth used by
- * `game-config.js` (Phaser scale mode), `LayoutManager` (safe-zone aspect),
- * `index.css` (root data-orientation attribute), and any feature that needs
- * to behave differently in portrait vs. landscape.
+ * `LayoutManager` (safe-zone aspect), `index.css` (root data-orientation
+ * attribute), and any feature that needs to behave differently in portrait
+ * vs. landscape.
  */
 export const ORIENTATIONS = /** @type {const} */ ({
   PORTRAIT: "portrait",
@@ -27,18 +27,7 @@ export const ORIENTATIONS = /** @type {const} */ ({
 });
 
 /** Active orientation for the current game. Change this single line to switch. */
-export const ORIENTATION = ORIENTATIONS.LANDSCAPE;
-
-// ─── Scenes ────────────────────────────────────────────────────────────────
-
-export const SCENE_KEYS = /** @type {const} */ ({
-  BOOT: "BootScene",
-  PRELOAD: "PreloadScene",
-  TITLE: "TitleScene",
-  GAME: "GameScene",
-  /** Dev-only: registered conditionally by game-config.js. */
-  STYLEGUIDE: "StyleguideScene",
-});
+export const ORIENTATION = ORIENTATIONS.PORTRAIT;
 
 // ─── Layout ────────────────────────────────────────────────────────────────
 

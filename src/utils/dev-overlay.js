@@ -1,8 +1,6 @@
 /**
- * Dev-only overlays. Mounted **directly on `document.body`** (not inside
- * the Phaser DOM container) so `position: fixed` works against the
- * viewport — Phaser's DOM wrapper sets a `transform`, which creates a new
- * containing block and would break fixed positioning.
+ * Dev-only overlays. Mounted on `document.body` so `position: fixed`
+ * resolves against the real viewport.
  *
  * Two affordances are installed:
  *
