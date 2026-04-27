@@ -70,4 +70,4 @@ See [CLAUDE.md](CLAUDE.md) for the full architectural guide. Short version:
 
 ## License
 
-UNLICENSED — internal template, fork freely.
+[MIT](LICENSE)
