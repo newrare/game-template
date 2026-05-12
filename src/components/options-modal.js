@@ -31,11 +31,6 @@ export class OptionsModal extends BaseModal {
         label: i18n.t("options.sound"),
         checked: optionsManager.soundEnabled,
       }),
-      toggleRowHtml({
-        action: "toggle-anim-skip",
-        label: i18n.t("options.anim_skip"),
-        checked: optionsManager.animSkipEnabled,
-      }),
       `<div class="gt-row gt-clickable" data-action="cycle-locale">
          <span class="gt-row-label">${i18n.t("options.language")}</span>
          <span class="gt-row-value">${i18n.locale.toUpperCase()}</span>
@@ -63,9 +58,6 @@ export class OptionsModal extends BaseModal {
         break;
       case "toggle-sound":
         optionsManager.set("sound", !optionsManager.soundEnabled);
-        break;
-      case "toggle-anim-skip":
-        optionsManager.set("animSkip", !optionsManager.animSkipEnabled);
         break;
       case "cycle-locale": {
         const locales = i18n.availableLocales;

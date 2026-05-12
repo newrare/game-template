@@ -1,0 +1,59 @@
+/* --- Game navbar — header bar inside the safe zone, inset like HUD buttons. --- */
+
+:root {
+  --gt-hud-btn-size: 44px; /* icon(28) + padding(8*2) — shared with HUD buttons */
+  --gt-navbar-height: var(--gt-hud-btn-size);
+  /* Total top offset occupied by the navbar row (height + top/bottom margins). */
+  --gt-navbar-offset: calc(var(--gt-navbar-height) + 2 * var(--gt-space-3));
+}
+
+.gt-navbar {
+  position: absolute;
+  left: calc(var(--gt-safe-left, 0px) + var(--gt-space-3));
+  top: calc(var(--gt-safe-top, 0px) + var(--gt-space-3));
+  /* Width: safe zone minus left margin, right margin, list-button, and gap between navbar & button. */
+  width: calc(var(--gt-safe-width, 100%) - 2 * var(--gt-space-3) - var(--gt-hud-btn-size) - var(--gt-space-2));
+  height: var(--gt-navbar-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--gt-space-2);
+  gap: var(--gt-space-2);
+  z-index: 100;
+  background: var(--gt-color-surface);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--gt-radius-md);
+  box-shadow: var(--gt-shadow-sm);
+}
+
+.gt-navbar-left,
+.gt-navbar-center,
+.gt-navbar-right {
+  display: flex;
+  align-items: center;
+  gap: var(--gt-space-2);
+  min-width: 0;
+}
+
+.gt-navbar-center {
+  flex: 1;
+  justify-content: center;
+}
+
+.gt-navbar-left {
+  flex: 0 1 auto;
+}
+
+.gt-navbar-right {
+  flex: 0 1 auto;
+}
+
+/* Title text helper — use inside any slot. */
+.gt-navbar-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--gt-color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

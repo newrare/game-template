@@ -11,4 +11,7 @@
 @import "./components/modal.css";
 @import "./components/toggle.css";
 @import "./components/title.css";
+@import "./components/navbar.css";
+@import "./components/hud.css";
+@import "./components/hud-modals.css";
 @import "./components/styleguide.css";

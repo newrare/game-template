@@ -52,11 +52,6 @@ class OptionsManager extends EventEmitter {
     return this.#options.sound;
   }
 
-  /** True when swipes may interrupt ongoing animations. */
-  get animSkipEnabled() {
-    return this.#options.animSkip;
-  }
-
   // ─── Persistence ─────────────────────────────────────
 
   #load() {

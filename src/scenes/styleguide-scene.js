@@ -4,15 +4,13 @@ import { layout } from "../managers/layout-manager.js";
 import { buttonHtml } from "../components/ui/button.js";
 import { toggleRowHtml } from "../components/ui/toggle-row.js";
 import { OptionsModal } from "../components/options-modal.js";
-import { TitleScene } from "./title-scene.js";
+import { Navbar } from "../components/navbar.js";
+import { Hud } from "../components/hud.js";
 
 /**
  * StyleguideScene — dev-only visual library for every UI primitive.
  */
 export class StyleguideScene {
-  /** @type {import('./scene-router.js').SceneRouter} */
-  #router;
-
   /** @type {HTMLElement | null} */
   #el = null;
 
@@ -22,9 +20,15 @@ export class StyleguideScene {
   /** @type {OptionsModal | null} */
   #sampleModal = null;
 
-  /** @param {import('./scene-router.js').SceneRouter} router */
-  constructor(router) {
-    this.#router = router;
+  /** @type {Navbar | null} */
+  #navbar = null;
+
+  /** @type {Hud | null} */
+  #hud = null;
+
+  /** @param {import('./scene-router.js').SceneRouter} _router */
+  constructor(_router) {
+    /* Router reserved for future scene transitions. */
   }
 
   /** @param {HTMLElement} root */
@@ -33,6 +37,16 @@ export class StyleguideScene {
     this.#el.className = "gt-sg gt-safe-box";
     this.#el.innerHTML = this.#renderInner();
     root.appendChild(this.#el);
+
+    /* Navbar header */
+    this.#navbar = new Navbar({ titleKey: "styleguide.title" });
+    this.#navbar.mount(root);
+    this.#bag.add(() => this.#navbar?.destroy());
+
+    /* HUD navigation buttons */
+    this.#hud = new Hud();
+    this.#hud.mount(root);
+    this.#bag.add(() => this.#hud?.destroy());
 
     this.#bag.on(this.#el, "pointerdown", this.#onClick);
     this.#bag.add(i18n.onChange(() => this.#refresh()));
@@ -95,11 +109,6 @@ export class StyleguideScene {
       .join("");
 
     return `
-      <header class="gt-sg-header">
-        <h1 class="gt-sg-title">${i18n.t("styleguide.title")}</h1>
-        ${buttonHtml({ action: "back", label: i18n.t("menu.back"), variant: "ghost" })}
-      </header>
-
       <section class="gt-sg-section">
         <h2 class="gt-sg-h2">${i18n.t("styleguide.colors")}</h2>
         <div class="gt-sg-swatches">${swatches}</div>
@@ -141,9 +150,6 @@ export class StyleguideScene {
     if (!actionEl) return;
     const action = /** @type {HTMLElement} */ (actionEl).dataset.action;
     switch (action) {
-      case "back":
-        this.#router.start(TitleScene);
-        break;
       case "open-modal":
         if (this.#sampleModal) return;
         this.#sampleModal = new OptionsModal({
@@ -159,6 +165,10 @@ export class StyleguideScene {
   destroy() {
     this.#sampleModal?.destroy();
     this.#sampleModal = null;
+    this.#hud?.destroy();
+    this.#hud = null;
+    this.#navbar?.destroy();
+    this.#navbar = null;
     this.#bag.dispose();
     this.#el?.remove();
     this.#el = null;

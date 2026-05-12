@@ -27,6 +27,7 @@ Thumbs.db
 .cache/
 .parcel-cache
 .eslintcache
+drafts/
 
 # Capacitor
 android/

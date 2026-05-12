@@ -1,0 +1,66 @@
+/* --- HUD navigation buttons. Positioned inside the safe zone using
+       CSS custom properties pushed by LayoutManager. --- */
+
+.gt-hud {
+  position: absolute;
+  left: var(--gt-safe-left, 0);
+  top: var(--gt-safe-top, 0);
+  width: var(--gt-safe-width, 100%);
+  height: var(--gt-safe-height, 100%);
+  pointer-events: none;
+  z-index: 100;
+}
+
+.gt-hud-top-right,
+.gt-hud-bottom-left,
+.gt-hud-bottom-right {
+  position: absolute;
+  display: flex;
+  gap: var(--gt-space-2);
+  pointer-events: auto;
+}
+
+.gt-hud-top-right {
+  /* Aligned with the navbar top edge */
+  top: var(--gt-space-3);
+  right: var(--gt-space-3);
+}
+.gt-hud-bottom-left {
+  bottom: var(--gt-space-3);
+  left: var(--gt-space-3);
+}
+
+.gt-hud-bottom-right {
+  bottom: var(--gt-space-3);
+  right: var(--gt-space-3);
+}
+
+.gt-hud-btn {
+  appearance: none;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--gt-color-surface);
+  border-radius: var(--gt-radius-md);
+  padding: var(--gt-space-2);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--gt-shadow-sm);
+  transition:
+    transform var(--anim-fast, 120ms) ease,
+    filter var(--anim-fast, 120ms) ease;
+}
+
+.gt-hud-btn:hover {
+  filter: brightness(1.15);
+}
+
+.gt-hud-btn:active {
+  transform: scale(0.93);
+}
+
+.gt-hud-icon {
+  width: 28px;
+  height: 28px;
+  display: block;
+}

@@ -2,6 +2,12 @@
 
 Guidance for Claude Code (claude.ai/code) when working in this repository.
 
+## Acknowledgment rule
+
+When this file is read or used to inform a response, you MUST include the following line at the very start of your response (before any other content):
+
+> **[CLAUDE.md used]**
+
 ## Commands
 
 ```bash
@@ -287,6 +293,34 @@ Storage keys are namespaced with `APP_ID` via the `STORAGE_KEYS` map in
 always go through `STORAGE_KEYS` (and ideally through `saveManager` /
 `optionsManager`).
 
+## Opus workflow
+
+When **Claude Opus** is selected for a task, follow this checklist for each request:
+
+1. **Re-read the project documentation** — review relevant sections of this CLAUDE.md and understand the existing patterns
+2. **Reflect on the request** — think deeply about the best approach and architecture before starting
+3. **Create unit tests** — write comprehensive tests first to define expected behavior
+4. **Create the code** — implement based on the test specifications
+5. **Validate with tests** — ensure all tests pass and code is correct
+6. **Update documentation** — modify md files and/or code comments as needed
+
+This workflow ensures quality, maintainability, and alignment with project standards.
+
+## Command approval rules
+
+The agent can execute the following command categories **without requesting user consent**:
+
+- **File utilities**: `cp`, `mv`, `rm`, `ls`, `cat`, `mkdir`, `find`, `du`, etc.
+- **Text processing**: `sed`, `grep`, `awk`, `cut`, `sort`, `uniq`, `tr`, etc.
+- **Build & package management**: `npm`, `npm run`, `npx`, `npm test`, `npm run build`, etc.
+- **Dev server**: `npm run dev`, `npm run preview`
+- **Linting & formatting**: `npm run lint`, `npm run format`
+- **Testing**: `npm test`, `npm run test:watch`, `npx vitest`, etc.
+
+**Requires user approval:**
+
+- **All Git commands**: `git commit`, `git push`, `git pull`, `git reset`, `git checkout`, `git branch`, etc.
+
 ## Code conventions
 
 - **JavaScript only** — no TypeScript. Use JSDoc for types.
@@ -294,7 +328,10 @@ always go through `STORAGE_KEYS` (and ideally through `saveManager` /
   stay PascalCase.
 - `const` over `let`, never `var`. ES2022+ (private class fields, optional
   chaining, nullish coalescing).
-- Each module folder has an `index.js` barrel export.
+- **No barrel files** — there are no `index.js` re-export files. Always import
+  directly from the source file: `import { layout } from '../managers/layout-manager.js'`,
+  never `import { layout } from '../managers/index.js'`. This keeps dependency
+  paths explicit and avoids circular-reference risks.
 - Tests live under `tests/` mirroring `src/`. Test files are
   `<name>.test.js`.
 - All code, comments and documentation in English. CSS comments are

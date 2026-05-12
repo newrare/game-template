@@ -1,11 +1,14 @@
 import { audioManager } from "../managers/audio-manager.js";
 import { i18n } from "../managers/i18n-manager.js";
+import { APP_VERSION } from "../configs/constants.js";
 import { ListenerBag } from "../utils/listener-bag.js";
-import { GameScene } from "./game-scene.js";
+import { SelectionScene } from "./selection-scene.js";
 
 /**
- * Title scene — renders the game name and a "tap to start" prompt. The
- * first user gesture unlocks audio and transitions to GameScene.
+ * Title scene — splash screen shown for 3 seconds. Displays the game logo
+ * (top-center), and a dev credit section at the bottom with the Newrare
+ * logo and version number. Unlocks audio on the first user gesture, then
+ * auto-navigates to SelectionScene.
  */
 export class TitleScene {
   /** @type {import('./scene-router.js').SceneRouter} */
@@ -28,36 +31,46 @@ export class TitleScene {
   /** @param {HTMLElement} root */
   mount(root) {
     this.#el = document.createElement("div");
-    this.#el.className = "gt-scene-center";
+    this.#el.className = "gt-title-scene";
     this.#el.innerHTML = this.#renderInner();
     root.appendChild(this.#el);
 
-    const onStart = () => {
-      if (this.#transitioning) return;
-      this.#transitioning = true;
-      audioManager.unlock();
-      this.#router.start(GameScene);
-    };
-    this.#bag.on(window, "keydown", onStart, { once: true });
-    this.#bag.on(this.#el, "pointerdown", onStart, { once: true });
+    /* Unlock audio on the first gesture (browser autoplay policy). */
+    const unlockAudio = () => audioManager.unlock();
+    this.#bag.on(window, "keydown", unlockAudio, { once: true });
+    this.#bag.on(this.#el, "pointerdown", unlockAudio, { once: true });
+
+    /* Auto-navigate after 3 seconds. */
+    this.#bag.timeout(() => this.#navigate(), 3000);
+
     this.#bag.add(i18n.onChange(() => this.#refresh()));
   }
 
   #renderInner() {
     return `
-      <div class="gt-title">
-        <h1 class="gt-title-name">${i18n.t("app.name")}</h1>
-        <p class="gt-title-hint">${i18n.t("title.tap_to_start")}</p>
+      <div class="gt-title-top">
+        <img src="images/newrare.png" alt="${i18n.t("app.name")}" class="gt-title-logo" />
+      </div>
+      <div class="gt-title-bottom">
+        <img src="images/newrare.png" alt="Newrare" class="gt-title-newrare" />
+        <div class="gt-title-credit">
+          <p class="gt-title-dev">${i18n.t("title.dev_by")}</p>
+          <p class="gt-title-version">v${APP_VERSION}</p>
+        </div>
       </div>
     `;
   }
 
   #refresh() {
     if (!this.#el) return;
-    const name = this.#el.querySelector(".gt-title-name");
-    const hint = this.#el.querySelector(".gt-title-hint");
-    if (name) name.textContent = i18n.t("app.name");
-    if (hint) hint.textContent = i18n.t("title.tap_to_start");
+    const dev = this.#el.querySelector(".gt-title-dev");
+    if (dev) dev.textContent = i18n.t("title.dev_by");
+  }
+
+  #navigate() {
+    if (this.#transitioning) return;
+    this.#transitioning = true;
+    this.#router.start(SelectionScene);
   }
 
   destroy() {

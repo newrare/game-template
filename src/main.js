@@ -33,14 +33,24 @@ audioManager.preload();
 const router = new SceneRouter(container);
 router.start(TitleScene);
 
-/* Dev-only: install the safe-zone overlay + nav bar and provide a shortcut
-   to the Styleguide scene. Both branches use dynamic imports so Vite strips
+/* Dev-only: install the safe-zone overlay + admin panel and provide shortcuts
+   to every scene. Both branches use dynamic imports so Vite strips
    them from production. */
 if (import.meta.env.DEV) {
   import("./utils/dev-overlay.js").then(({ installDevOverlay }) => {
     const install = () =>
       installDevOverlay({
         onTitle: () => router.start(TitleScene),
+        onSelection: async () => {
+          const { SelectionScene } = await import(
+            "./scenes/selection-scene.js"
+          );
+          router.start(SelectionScene);
+        },
+        onGame: async () => {
+          const { GameScene } = await import("./scenes/game-scene.js");
+          router.start(GameScene);
+        },
         onStyleguide: async () => {
           const { StyleguideScene } = await import(
             "./scenes/styleguide-scene.js"

@@ -1,4 +1,67 @@
-/* --- Title scene markup. --- */
+/* --- Title scene (splash screen). --- */
+
+.gt-title-scene {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--gt-space-6) var(--gt-space-4);
+  animation: gt-fade-in var(--anim-normal, 250ms) ease-out forwards;
+}
+
+.gt-title-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 15%;
+}
+
+.gt-title-logo {
+  width: clamp(80px, 28vmin, 160px);
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 18px rgba(0, 0, 0, 0.35));
+}
+
+.gt-title-bottom {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--gt-space-3);
+  margin-bottom: 8%;
+}
+
+.gt-title-newrare {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  opacity: 0.7;
+  flex-shrink: 0;
+}
+
+.gt-title-credit {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.gt-title-dev {
+  font-size: 0.85rem;
+  color: var(--gt-color-text-dim);
+  letter-spacing: 0.04em;
+  text-align: left;
+}
+
+.gt-title-version {
+  font-size: 0.7rem;
+  color: var(--gt-color-text-dim);
+  opacity: 0.5;
+  text-align: left;
+}
+
+/* Legacy classes kept for the style guide demo. */
 
 .gt-title {
   display: flex;

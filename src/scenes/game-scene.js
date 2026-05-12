@@ -1,4 +1,6 @@
 import { GameController } from "../controllers/game-controller.js";
+import { Hud } from "../components/hud.js";
+import { Navbar } from "../components/navbar.js";
 
 /**
  * GameScene — main gameplay scene. Stays thin on purpose: every piece of
@@ -18,6 +20,12 @@ export class GameScene {
   /** @type {GameController | null} */
   #controller = null;
 
+  /** @type {Hud | null} */
+  #hud = null;
+
+  /** @type {Navbar | null} */
+  #navbar = null;
+
   /**
    * @param {import('./scene-router.js').SceneRouter} router
    * @param {object} [data] — payload forwarded by `router.start`
@@ -35,9 +43,21 @@ export class GameScene {
       data: this.#data,
     });
     this.#controller.start();
+
+    /* Navbar header */
+    this.#navbar = new Navbar({ titleKey: "scene.game" });
+    this.#navbar.mount(root);
+
+    /* HUD navigation buttons */
+    this.#hud = new Hud();
+    this.#hud.mount(root);
   }
 
   destroy() {
+    this.#hud?.destroy();
+    this.#hud = null;
+    this.#navbar?.destroy();
+    this.#navbar = null;
     this.#controller?.destroy();
     this.#controller = null;
   }

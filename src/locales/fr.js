@@ -6,6 +6,10 @@ export const fr = {
 
   "title.tap_to_start": "Touchez pour commencer",
   "title.styleguide": "Guide de style",
+  "title.dev_by": "Un jeu Newrare",
+
+  "scene.selection": "Sélection",
+  "scene.game": "Jeu",
 
   "menu.title": "Menu",
   "menu.resume": "Reprendre",
@@ -18,7 +22,6 @@ export const fr = {
   "options.title": "Options",
   "options.music": "Musique",
   "options.sound": "Son",
-  "options.anim_skip": "Sauter les animations",
   "options.language": "Langue",
   "options.reset_data": "Réinitialiser les données",
   "options.reset_data_confirm":
@@ -31,6 +34,31 @@ export const fr = {
   "styleguide.modal": "Fenêtre",
   "styleguide.animations": "Animations",
   "styleguide.open_modal": "Ouvrir une fenêtre de démo",
+
+  "hud.list": "Liste",
+  "hud.settings": "Réglages",
+  "hud.ranking": "Classement",
+  "hud.saves": "Sauvegardes",
+
+  "list.title": "Collection",
+  "list.empty": "Aucun élément.",
+
+  "ranking.title": "Classement",
+  "ranking.empty": "Aucun score.",
+  "ranking.rank": "#",
+  "ranking.score": "Score",
+  "ranking.date": "Date",
+
+  "saves.title": "Sauvegardes",
+  "saves.autosave": "Sauvegarde auto",
+  "saves.slot": "Emplacement {n}",
+  "saves.empty_slot": "Vide",
+  "saves.load": "Charger",
+  "saves.save": "Sauvegarder",
+  "saves.delete": "Supprimer",
+  "saves.no_autosave": "Aucune sauvegarde automatique.",
+  "saves.confirm_overwrite": "Écraser cet emplacement ?",
+  "saves.confirm_delete": "Supprimer cette sauvegarde ?",
 
   "common.yes": "Oui",
   "common.no": "Non",

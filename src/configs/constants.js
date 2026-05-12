@@ -95,7 +95,6 @@ export const MAX_SAVE_SLOTS = 8;
 export const DEFAULT_OPTIONS = {
   music: true,
   sound: true,
-  animSkip: false,
 };
 
 // ─── Audio ─────────────────────────────────────────────────────────────────
